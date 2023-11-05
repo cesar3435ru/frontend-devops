@@ -13,11 +13,19 @@
                         <input type="text" class="form-control" placeholder="Write your nue" name="nue" id="nue"
                             autocomplete="nue" formControlName="nue" maxlength="50">
                         <label for="nue">Nue*</label>
-                        <div *ngIf="validInput('nue')" class="form-text text-danger">Nue is required.
+                        <div *ngIf="validInput('nue')" class="form-text text-danger">
+                            <span *ngIf="loginForm.get('nue')?.hasError('required')">Nue es requerido.</span>
+                            <span *ngIf="loginForm.get('nue')?.hasError('maxlength')">Deben ser solo 10 caracteres.
+                            </span>
                         </div>
-                        <!-- <div *ngIf="loginForm.get('nue').hasError('patronNue')">
-                            {{ loginForm.get('nue').getError('message') }}
+                        <!-- <div *ngIf="loginForm.hasError('alfanum')" class="form-text text-danger">
+                            Solo letras mayusculas y numeros.
                         </div> -->
+                        <div *ngIf="loginForm.get('nue')?.value && loginForm.hasError('alfanum')"
+                            class="form-text text-danger">
+                            Solo letras mayusculas y numeros.
+                        </div>
+
                     </div>
 
                     <div class="form-floating col-md-12">
@@ -49,7 +57,4 @@
         </div>
 
     </div>
-    <br>
-    <br>
-    <br>
 </div>

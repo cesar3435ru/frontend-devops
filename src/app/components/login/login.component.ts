@@ -42,32 +42,35 @@ export class LoginComponent implements OnInit {
 
 
   loginForm: FormGroup = this.theForm.group({
-    nue: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+    nue: ["", [Validators.required, Validators.maxLength(10)]],
     password: ["", [Validators.required, Validators.minLength(10)]]
   },
     { validators: NueValidators.patronNue }
   )
 
-
   validInput(input: string) {
-    const control = this.loginForm.controls[input];
-
+    const control = this.loginForm.get(input);
+  
     if (!control) {
-      return false; // The control does not exist and no errors
+      return false; // El control no existe
     }
-
-    if (input === 'password' && control.errors) {
-      if (control.errors && control.touched) {
-        return true; // Password is required and has been touched
+  
+    if (control.touched && control.errors) {
+      if (control.errors['required']) {
+        return true; // El campo es requerido y ha sido tocado
       }
-
-      if (control.errors && control.touched) {
-        return true; // Password is too short and has been touched
+  
+      if (control.errors['minlength']) {
+        return true; // El campo es demasiado corto y ha sido tocado
+      }
+      if (control.errors['maxlength']) {
+        return true; // El campo es demasiado corto y ha sido tocado
       }
     }
-
-    return control.errors && control.touched;
+  
+    return false; // No hay errores de validación o el control no ha sido tocado
   }
+  
 
 
   startLogin() {
