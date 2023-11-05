@@ -1,0 +1,55 @@
+<div class="login-component">
+    <div class="container">
+        <div class="card" style="width: 19rem;">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button class="btn btn-outline-primary btn-sm" (click)="downloadFormatos();">Formatos</button>
+                <button class="btn btn-outline-primary btn-sm" (click)="downloadConvocatoria();">Convocatorias</button>
+                <button class="btn btn-outline-primary btn-sm">Convenios</button>
+            </div>
+            <img src="/assets/images/devops.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="startLogin();" class="row g-2">
+                    <div class="form-floating col-md-12">
+                        <input type="text" class="form-control" placeholder="Write your nue" name="nue" id="nue"
+                            autocomplete="nue" formControlName="nue" maxlength="50">
+                        <label for="nue">Nue*</label>
+                        <div *ngIf="validInput('nue')" class="form-text text-danger">Nue is required.
+                        </div>
+                        <!-- <div *ngIf="loginForm.get('nue').hasError('patronNue')">
+                            {{ loginForm.get('nue').getError('message') }}
+                        </div> -->
+                    </div>
+
+                    <div class="form-floating col-md-12">
+                        <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                            class="form-control" placeholder="Write your password" id="password">
+                        <span class="toggle-password effect-eye" (click)="togglePassword()">
+                            <i [class]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                        </span>
+                        <label for="password">Password*</label>
+                        <div *ngIf="validInput('password')" class="form-text text-danger">
+                            <span *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</span>
+                            <span *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 10
+                                characters long.</span>
+                        </div>
+
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Remember me
+                        </label>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-outline-primary" [disabled]="loginForm.invalid"> <i
+                                class="fa-solid fa-cloud"></i> Iniciar sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+</div>

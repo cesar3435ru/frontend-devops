@@ -1,0 +1,46 @@
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.leftText {
+  text-align: end;
+}
+
+.container {
+  display: grid;
+  place-items: center;
+  margin-top: 35px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.login-component {
+  background-image: url('/assets/images/back.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  height: 100vh;
+
+  @media (max-width: 768px) {
+    background: linear-gradient(to bottom, #ea506c, #4784ff);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+.effect-eye:hover {
+  color: blue;
+}
