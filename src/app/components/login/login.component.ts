@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'success',
-      title: 'Login successfully!!!',
+      title: 'Login exitoso!!!',
       showConfirmButton: false,
       timer: 1500
     })
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'Something is wrong!'
+      text: 'Algo anda mal!'
     })
   }
 
