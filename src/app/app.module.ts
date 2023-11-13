@@ -9,6 +9,8 @@ import { AdminModule } from './components/admin-components/admin.module';
 import { AgremiadoModule } from './components/agr-components/agremiado.module';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,13 @@ import { CommonModule } from '@angular/common';
     RouterLink,
     CommonModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

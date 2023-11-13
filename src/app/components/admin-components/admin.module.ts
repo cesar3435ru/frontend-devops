@@ -6,14 +6,19 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { LayoutAdminComponent } from './layout-admin/layout-admin.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AdminGuard } from 'src/app/guards/admin.guard';
 const routes: Routes = [
   {
     path: 'h-admin',
     component: LayoutAdminComponent,
+    
     children: [
       { path: 'home-admin', component: HomeadminComponent },
       { path: 'add-admin', component: AddAdminComponent },
     ],
+    canActivate: [AdminGuard]
+
   }
 ]
 
@@ -29,7 +34,8 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    HttpClientModule
   ],
   exports: [HomeadminComponent,
     AddAdminComponent

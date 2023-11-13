@@ -1,35 +1,36 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, tap, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AdminService } from '../services/admin.service';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
 
-  constructor(private admin: AdminService, private router: Router) { }
+  constructor(private auth: AdminService, private router: Router) { }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (this.admin.getAuth) {
-      console.log('Access allowed babe');
-      this.goodNot();
-      return true; // Usuario autenticado
-    } else {
-      console.log('No access');
-      this.alertError();
-      this.router.navigate(['/login']); // Redirige al inicio de sesión
-      return false;
-    }
-
-
+    return this.auth.getIsAuthenticated().pipe(
+      map((isAuthenticated) => {
+        if (isAuthenticated === true) {
+          console.log('Access allowed');
+          this.router.navigateByUrl('/h-admin');
+          this.goodNot();
+          return true;
+        } else {
+          console.log('No access babe');
+          this.router.navigateByUrl('/login');
+          this.alertError();
+          return false;
+        }
+      })
+    );
   }
-
 
   alertError() {
     Swal.fire({
@@ -39,7 +40,7 @@ export class AdminGuard implements CanActivate {
       showConfirmButton: false,
       timer: 1500,
       allowOutsideClick: false
-    })
+    });
   }
 
   goodNot() {
@@ -49,8 +50,8 @@ export class AdminGuard implements CanActivate {
       title: 'Access is authorized!',
       showConfirmButton: false,
       timer: 1500
-    })
+    });
   }
 
+  
 }
-

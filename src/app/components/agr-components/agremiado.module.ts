@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeagrComponent } from './homeagr/homeagr.component';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
+import { AgremiadoGuard } from 'src/app/guards/agremiado.guard';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
   {
-    path: 'home-agr',
+    path: 'h-agr',
     component: HomeagrComponent,
+    // canActivate: [AgremiadoGuard],
     children: [
       { path: 'solicitudes', component: SolicitudesComponent },
     ],
+    canActivate: [AgremiadoGuard]
   }
 ]
 
@@ -20,9 +26,13 @@ const routes: Routes = [
     SolicitudesComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    RouterModule.forChild(routes),
+    HttpClientModule
   ],
-  exports: [HomeagrComponent,
+  exports: [HomeagrComponent, SolicitudesComponent,
   ]
 })
 export class AgremiadoModule { }
