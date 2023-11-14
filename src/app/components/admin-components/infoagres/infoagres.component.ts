@@ -140,7 +140,7 @@ export class InfoagresComponent {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'Something is wrong!'
+      text: 'Something is wrong babe!'
     })
   }
 
