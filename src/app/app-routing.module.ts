@@ -14,11 +14,11 @@ const routes: Routes = [
   },
 
   {
-    path: 'admin',
+    path: 'h-admin',
     loadChildren: () => import('./components/admin-components/admin.module').then(m => m.AdminModule)
   },
   {
-    path: 'agremiado',
+    path: 'h-agremiado',
     loadChildren: () => import('./components/agr-components/agremiado.module').then(m => m.AgremiadoModule)
   },
   

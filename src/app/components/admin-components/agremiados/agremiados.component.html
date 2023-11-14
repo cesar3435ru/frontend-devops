@@ -1,0 +1,144 @@
+<br>
+<div class="container">
+    <button type="button" (click)="toggleForm()" class="btn btn-outline-success"> <i
+            class="fa-solid fa-square-plus"></i> Agregar Agremiado</button>
+</div>
+<br>
+<div *ngIf="showForm">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="center">Llena este form</h4>
+                        <div *ngIf="showProgressBar" class="progress mt-3">
+                            <div class="progress-bar" [style.width.%]="progress" role="progressbar"
+                                [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">
+                                This is your progress {{ progress }}%
+                            </div>
+                        </div>
+                        <br>
+                        <form [formGroup]="agrForm" (ngSubmit)="saveAgr()" class="row g-2">
+                            <div class="form-floating col-md-4">
+                                <input type="text" class="form-control" id="nue" autocomplete="true"
+                                    formControlName="nue" placeholder="Write your nue" (change)="updateProgress()">
+                                <label for="name">Nue*</label>
+                                <div *ngIf="validateInput('nue')" class="form-text text-danger">Nue is required.
+                                </div>
+                            </div>
+                            <div class="form-floating col-md-4">
+                                <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                                    class="form-control" placeholder="Write your password" id="password"
+                                    (change)="updateProgress()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text toggle-password effect-eye"
+                                        (click)="togglePassword()">
+                                        <i [class]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                                    </span>
+                                </div>
+                                <label for="password">Password*</label>
+                                <div *ngIf="validateInput('password')" class="form-text text-danger">
+                                    <span *ngIf="agrForm.get('password')?.hasError('required')">Password is
+                                        required.</span>
+                                    <span *ngIf="agrForm.get('password')?.hasError('minlength')">Password must be at
+                                        least
+                                        10
+                                        characters long.</span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-floating col-md-4">
+                                <input [type]="showPasswordTwo ? 'text' : 'password'" formControlName="cpassword"
+                                    class="form-control" placeholder="Confirm your password" id="cpassword"
+                                    autocomplete="true" (change)="updateProgress()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text toggle-passwordtwo effect-eye"
+                                        (click)="togglePasswordTwo()">
+                                        <i [class]="showPasswordTwo ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                                    </span>
+                                </div>
+                                <label for="cpassword"> Confirm Password*</label>
+                                <div *ngIf="validateInput('cpassword')" class="form-text text-danger">
+                                    <span *ngIf="agrForm.get('cpassword')?.hasError('required')">Password is
+                                        required.</span>
+                                    <span *ngIf="agrForm.get('cpassword')?.hasError('minlength')">Password must be at
+                                        least
+                                        10
+                                        characters long.</span>
+                                </div>
+                                <div *ngIf="this.agrForm.get('cpassword')?.dirty && this.agrForm.hasError('passwordsNotMatching')"
+                                    class="error-message" class="form-text text-danger">Passwords are not matching.
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-outline-primary" [disabled]="agrForm.invalid"> <i
+                                        class="fa-solid fa-cloud"></i> Guardar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="input-group">
+        <input class="form-control" type="text" [(ngModel)]="searchTerm" placeholder="Search nue..." id="searchTerm">
+        <span class="toggle-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+    </div>
+
+    <div class="table-responsive" *ngIf="agremiados.length > 0">
+        <table id="tasks" class="table table-striped table-hover table-bordered shadow-lg mt-4" style="width:100%">
+            <thead class="table-danger text-white">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nue</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody *ngIf="getFilteredAgremiados().length > 0; else noResults">
+                <tr *ngFor="let agr of getFilteredAgremiados() | paginate: { itemsPerPage: 3, currentPage: p }">
+                    <td>{{agr.id}}</td>
+                    <td>{{agr.nue}}</td>
+                    <td>
+                        <button class="btn btn-outline-primary separar btn-sm" type="submit"
+                            (click)="editAgremiado(agr.id)"><i class="fas fa-fw fa-pencil"></i>
+                            Editar</button>
+                        <button class="btn btn-outline-danger btn-sm" type="submit" (click)="confirmAlert(agr.id)"><i
+                                class="fas fa-fw fa-trash"></i>
+                            Borrar</button>
+                    </td>
+                </tr>
+            </tbody>
+            <ng-template #noResults>
+                <tbody>
+                    <tr>
+                        <td colspan="3" class="text-center">NO RESULTS</td>
+                    </tr>
+                </tbody>
+            </ng-template>
+
+        </table>
+
+        <pagination-controls class="page" (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+    <br>
+    <div *ngIf="agremiados.length === 0" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Hoops babe!</strong> You still don't have any admins.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+</div>

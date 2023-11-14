@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from 'appsettings-json-reader';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -11,6 +11,18 @@ export class AdminService {
 
   getAuth: EventEmitter<boolean> = new EventEmitter(false);
   // getAuth: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public adminsSubject: Subject<void> = new Subject<void>();
+  public deleteAdminsSubject: Subject<void> = new Subject<void>();
+
+  public agresSubject: Subject<void> = new Subject<void>();
+  public deleteAgrSubject: Subject<void> = new Subject<void>();
+
+  public agremiadosSubject: Subject<void> = new Subject<void>();
+  public deleteAgremiadoSubject: Subject<void> = new Subject<void>();
+
+  public addAgremiadoSubject: Subject<void> = new Subject<void>();
+
+
   private api = AppSettings.readAppSettings().taskSettings.apiURL;
 
   constructor(private http: HttpClient) { }
@@ -63,6 +75,123 @@ export class AdminService {
       })
     );
   }
+
+  addAdmin(user: any) {
+    return this.http.post(this.api + '/api/addadmin', user, {
+      withCredentials: true
+    });
+  }
+  getAdminsObservable(): Observable<void> {
+    return this.adminsSubject.asObservable();
+  }
+
+  getAllAdmins() {
+    return this.http.get(this.api + '/api/admins', {
+      withCredentials: true
+    });
+  }
+
+  deleteAdminById(id: number) {
+    return this.http.delete(this.api + `/api/borraru/${id}`, {
+      withCredentials: true
+    });
+  }
+  getAdminsDeletedObservable(): Observable<void> {
+    return this.deleteAdminsSubject.asObservable();
+  }
+  editAdmin(id: number, formData: FormData) {
+    return this.http.put(this.api + `/api/user/${id}`, formData, {
+      withCredentials: true
+    });
+  }
+
+
+
+
+
+  addAgre(user: any) {
+    return this.http.post(this.api + '/api/addagr', user, {
+      withCredentials: true
+    });
+  }
+  getAgresObservable(): Observable<void> {
+    return this.agresSubject.asObservable();
+  }
+
+  getAllAgres() {
+    return this.http.get(this.api + '/api/agremiados', {
+      withCredentials: true
+    });
+  }
+
+  deleteAgreById(id: number) {
+    return this.http.delete(this.api + `/api/borraragr/${id}`, {
+      withCredentials: true
+    });
+  }
+  getAgresDeletedObservable(): Observable<void> {
+    return this.deleteAgrSubject.asObservable();
+  }
+  editAgrem(id: number, formData: FormData) {
+    return this.http.put(this.api + `/api/agr/${id}`, formData, {
+      withCredentials: true
+    });
+  }
+
+
+
+  //Funciones para agregar la info del agremiado
+  addAgremiado(user: any) {
+    return this.http.post(this.api + '/api/addagremiado', user, {
+      withCredentials: true
+    });
+  }
+  
+  getAgremiadosObservable(): Observable<void> {
+    return this.addAgremiadoSubject.asObservable();
+  }
+
+  getAllAgreamiados() {
+    return this.http.get(this.api + '/api/agrs', {
+      withCredentials: true
+    });
+  }
+
+  deleteAgremiadoById(id: number) {
+    return this.http.delete(this.api + `/api/bagremiado/${id}`, {
+      withCredentials: true
+    });
+  }
+  getAgremiadosDeletedObservable(): Observable<void> {
+    return this.deleteAgremiadoSubject.asObservable();
+  }
+  editInfoAgrem(id: number, formData: FormData) {
+    return this.http.put(this.api + `/api/agremiado/${id}`, formData, {
+      withCredentials: true
+    });
+  }
+
+
+  getGeneros() {
+    return this.http.get(this.api + '/api/generos', {
+      withCredentials: true
+    });
+  }
+
+  
+  getNuesA() {
+    return this.http.get(this.api + '/api/nues', {
+      withCredentials: true
+    });
+  }
+
+  getCuotas() {
+    return this.http.get(this.api + '/api/cuotas', {
+      withCredentials: true
+    });
+  }
+
+
 }
 
 

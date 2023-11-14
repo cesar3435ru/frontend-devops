@@ -1,0 +1,37 @@
+.center {
+    text-align: center;
+}
+
+.separate {
+    margin: 10px;
+}
+
+.page {
+    text-align: center;
+}
+
+.toggle-search {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    line-height: 0;
+}
+
+.toggle-passwordtwo {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    line-height: 0;
+}

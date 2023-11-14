@@ -1,10 +1,71 @@
-<button type="button" class="btn btn-primary">Primary</button>
-<button type="button" class="btn btn-secondary">Secondary</button>
-<button type="button" class="btn btn-success">Success</button>
-<button type="button" class="btn btn-danger">Danger</button>
-<button type="button" class="btn btn-warning">Warning</button>
-<button type="button" class="btn btn-info">Info</button>
-<button type="button" class="btn btn-light">Light</button>
-<button type="button" class="btn btn-dark">Dark</button>
+<section class="section">
+    <div class="section-header">
+        <h3 class="page__heading centrar">Panel inicial del sistema web</h3>
+    </div>
+    <div class="section-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
 
-<button type="button" class="btn btn-link">Link</button>
+                            <div class="col-md-4 col-xl-4 mb-3" id="card-hover">
+                                <div class="card bg-primary order-card">
+                                    <a routerLink="../admins" [routerLinkActive]="['active']" class="text-white" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Clic aquí para ver todos los usuarios administradores">
+                                        <div class="card-block">
+                                            <h4 class="centrar">Roles de Administrador</h4>
+
+                                            <h1 class="text-center"><i class="fas fa-fw fa-user-secret"></i><span>
+                                            </span></h1>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4 -mb-3" id="card-hover">
+                                <div class="card bg-success order-card">
+                                    <a routerLink="../agremiados" [routerLinkActive]="['active']" class="text-white" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Clic aquí para ver todos los usuarios agremiados">
+                                        <div class="card-block">
+                                            <h4 class="centrar">Roles de Agremiado</h4>
+
+                                            <h1 class="text-center"><i class="fa-solid fa-users-gear"></i><span>
+                                            </span></h1>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-xl-4 -mb-3" id="card-hover">
+                                <div class="card bg-secondary order-card">
+                                    <a routerLink="../info-agres" [routerLinkActive]="['active']" class="text-white" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Clic aquí para ver todos los usuarios agremiados">
+                                        <div class="card-block">
+                                            <h4 class="centrar">Ver agremiados</h4>
+
+                                            <h1 class="text-center"><i class="fa-solid fa-eye"></i><span>
+                                            </span></h1>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                     
+
+
+                           
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

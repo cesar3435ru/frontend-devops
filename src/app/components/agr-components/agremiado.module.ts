@@ -9,7 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
   {
-    path: 'h-agr',
+    path: 'agr',
     component: HomeagrComponent,
     // canActivate: [AgremiadoGuard],
     children: [

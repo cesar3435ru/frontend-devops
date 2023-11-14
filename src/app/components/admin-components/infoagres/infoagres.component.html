@@ -1,0 +1,175 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add Agremiado <i class="fa-solid fa-plus"></i>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Llena el formulario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="agrForm" (ngSubmit)="saveInfo()" class="row g-2">
+          <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="a_paterno" autocomplete="true" formControlName="a_paterno"
+              placeholder="Write your apellido paterno">
+            <label for="a_paterno">Apellido Paterno*</label>
+            <small *ngIf="validateInput('a_paterno')" class="form-text text-danger">
+              El campo es requerido
+            </small>
+          </div>
+
+          <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="a_materno" autocomplete="true" formControlName="a_materno"
+              placeholder="Write your apellido materno">
+            <label for="a_materno">Apellido Materno*</label>
+            <small *ngIf="validateInput('a_materno')" class="form-text text-danger">
+              El campo es requerido
+            </small>
+          </div>
+
+          <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="nombre" autocomplete="true" formControlName="nombre"
+              placeholder="Write your nombre">
+            <label for="nombre">Nombre(s)*</label>
+            <small *ngIf="validateInput('nombre')" class="form-text text-danger">
+              El campo es requerido
+            </small>
+          </div>
+
+          <div class="col-md-4">
+            <select class="form-select" aria-label="Default select example" formControlName="genero">
+              <option disabled value="">Elige tu género*</option>
+              <option *ngFor="let ge of generos" [value]="ge.id">{{ ge.genero }}</option>
+            </select>
+            <small *ngIf="validateInput('genero')" class="form-text text-danger">
+              Debes elegir tu género.
+            </small>
+          </div>
+
+          <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="nup" autocomplete="true" formControlName="nup"
+              placeholder="Write your nup">
+            <label for="nup">NUP*</label>
+            <small *ngIf="validateInput('nup')" class="form-text text-danger">
+              El campo rfc es requerido
+            </small>
+          </div>
+
+          <div class="col-md-4">
+            <select class="form-select" aria-label="Default select example" formControlName="nue">
+              <option disabled value="">Elige el nue*</option>
+              <option *ngFor="let n of nues" [value]="n.id">{{ n.nue }}</option>
+            </select>
+            <small *ngIf="validateInput('nue')" class="form-text text-danger">
+              Debes elegir un nue para asignar.
+            </small>
+          </div>
+
+          <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="rfc" autocomplete="true" formControlName="rfc"
+              placeholder="Write your rfc">
+            <label for="rfc">RFC*</label>
+            <small *ngIf="validateInput('rfc')" class="form-text text-danger">
+              El campo rfc es requerido
+            </small>
+          </div>
+
+          <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="nss" autocomplete="true" formControlName="nss"
+              placeholder="Write your nss">
+            <label for="nss">NSS*</label>
+            <small *ngIf="validateInput('nss')" class="form-text text-danger">
+              El campo nss es requerido
+            </small>
+          </div>
+
+          <div class="form-floating col-md-4">
+            <input type="date" class="form-control" id="f_nacimiento" autocomplete="true" formControlName="f_nacimiento"
+              placeholder="Write your fecha">
+            <label for="f_nacimiento">F nacimiento*</label>
+            <small *ngIf="validateInput('f_nacimiento')" class="form-text text-danger">
+              El campo es requerido
+            </small>
+          </div>
+
+          <div class="form-floating col-md-4">
+            <input type="text" class="form-control" id="telefono" autocomplete="true" formControlName="telefono"
+              placeholder="Write your telefono">
+            <label for="telefono">Teléfono*</label>
+            <small *ngIf="validateInput('telefono')" class="form-text text-danger">
+              El campo telefono es requerido
+            </small>
+          </div>
+
+          <div class="col-md-4">
+            <select class="form-select" aria-label="Default select example" formControlName="cuota">
+              <option disabled value="">Elige una cuota*</option>
+              <option *ngFor="let c of cuotas" [value]="c.id">{{ c.respuesta }}</option>
+            </select>
+            <small *ngIf="validateInput('cuota')" class="form-text text-danger">
+              Debes elegir una cuota.
+            </small>
+          </div>
+
+
+
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="agrForm.invalid">Guardar
+              registro</button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table id="tasks" class="table table-striped table-hover table-bordered shadow-lg mt-4 table table-hover"
+    style="width:100%">
+    <thead>
+      <tr>
+        <th scope="col">Nombre completo</th>
+        <th scope="col">Género</th>
+        <th scope="col">NUP</th>
+        <th scope="col">NUE</th>
+        <th scope="col">RFC</th>
+        <th scope="col">NSS</th>
+        <th scope="col">Fecha de nacimiento</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Cuota</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ag of agremiados">
+        <td>{{ag.nombre}} {{ag.a_paterno}} {{ag.a_materno}}</td>
+        <td>{{ag.genero.genero}}</td>
+        <td>{{ag.nup}}</td>
+        <td>{{ag.nue}}</td>
+        <td>{{ag.rfc}}</td>
+        <td>{{ag.nss}}</td>
+        <td>{{ag.telefono}}</td>
+        <td>{{ag.f_nacimiento}}</td>
+        <td>{{ag.cuota.respuesta}}</td>
+        <td>
+          <button class="btn btn-outline-primary btn-sm separar" type="submit"><i class="fas fa-fw fa-pencil"></i>
+            Editar</button>
+          <button class="btn btn-outline-danger btn-sm" type="submit"><i class="fas fa-fw fa-trash"></i>
+            Borrar</button>
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+  <!-- <pagination-controls class="page" (pageChange)="p = $event"></pagination-controls> -->
+
+</div>

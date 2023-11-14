@@ -105,11 +105,11 @@ export class LoginComponent implements OnInit {
 
           switch (this.userD.rol_id) {
             case 1:
-              this.rou.navigate(['/h-admin']);
+              this.rou.navigate(['/admin']);
               this.goodNot();
               break;
             case 2:
-              this.rou.navigate(['/h-agr']);
+              this.rou.navigate(['/agr']);
               this.goodNot();
               break;
             default:

@@ -1,21 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeadminComponent } from './homeadmin/homeadmin.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
-import { AddAdminComponent } from './add-admin/add-admin.component';
 import { LayoutAdminComponent } from './layout-admin/layout-admin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminGuard } from 'src/app/guards/admin.guard';
+import { AdminsComponent } from './admins/admins.component';
+import { AgremiadosComponent } from './agremiados/agremiados.component';
+import { EditadminComponent } from './editadmin/editadmin.component';
+import { EditagreComponent } from './editagre/editagre.component';
+import { InfoagresComponent } from './infoagres/infoagres.component';
+import { AinfoeditComponent } from './ainfoedit/ainfoedit.component';
 const routes: Routes = [
   {
-    path: 'h-admin',
+    path: 'admin',
     component: LayoutAdminComponent,
-    
+
     children: [
-      { path: 'home-admin', component: HomeadminComponent },
-      { path: 'add-admin', component: AddAdminComponent },
+      { path: 'home', component: HomeadminComponent },
+      { path: 'admins', component: AdminsComponent },
+      { path: 'editadmin/:id', component: EditadminComponent },
+      { path: 'agremiados', component: AgremiadosComponent },
+      { path: 'editagre/:id', component: EditagreComponent},
+      { path: 'info-agres', component: InfoagresComponent},
+      { path: 'agre/:id', component: AinfoeditComponent},
+
+
     ],
     canActivate: [AdminGuard]
 
@@ -27,18 +39,24 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     HomeadminComponent,
-    AddAdminComponent,
-    LayoutAdminComponent
+    LayoutAdminComponent,
+    AdminsComponent,
+    AgremiadosComponent,
+    EditadminComponent,
+    EditagreComponent,
+    InfoagresComponent,
+    AinfoeditComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     NgxPaginationModule,
     RouterModule.forChild(routes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  exports: [HomeadminComponent,
-    AddAdminComponent
+  exports: [HomeadminComponent, EditadminComponent,
+    EditagreComponent
   ]
 })
 export class AdminModule { }
