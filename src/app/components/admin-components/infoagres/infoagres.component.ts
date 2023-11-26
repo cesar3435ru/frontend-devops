@@ -14,12 +14,24 @@ export class InfoagresComponent {
   generos: any[] = [];
   nues: any[] = [];
   cuotas: any[] = [];
+  selectedGender: any;
+  selectedNue: any;
+  selectedCuota: any;
+
+  searchTerm: string = '';
+  p: number = 1;
+
+
   constructor(private user: AdminService, private theForm: FormBuilder) {
     this.showAgremiados();
     this.showGeneros();
     this.showNues();
     this.showCuotas();
     this.user.getAgremiadosObservable().subscribe(() => {
+      this.showAgremiados();
+    });
+
+    this.user.getAgremiadosDeletedObservable().subscribe(() => {
       this.showAgremiados();
     });
   }
@@ -54,7 +66,7 @@ export class InfoagresComponent {
       const data = this.agrForm.getRawValue();
       for (const dataKey in data) {
         formData.append(dataKey, data[dataKey]);
-  
+
       }
 
       this.user.addAgremiado(formData).subscribe(
@@ -74,7 +86,7 @@ export class InfoagresComponent {
 
 
     }
-   
+
   }
 
 
@@ -88,6 +100,20 @@ export class InfoagresComponent {
         console.error('Error:', error);
       }
     );
+  }
+
+  filterAgres() {
+    if (this.agremiados && this.agremiados.length > 0) {
+      return this.agremiados.filter(agres =>
+        agres.rfc.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      return [];
+    }
+  }
+  getFilteredAgres() {
+    const filteredAdmins = this.filterAgres();
+    return filteredAdmins.slice();
   }
 
   showGeneros() {
@@ -136,12 +162,51 @@ export class InfoagresComponent {
     })
   }
 
+  goodNo() {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Agremiado has been deleted successfully!!!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
   badNot() {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
       text: 'Something is wrong babe!'
     })
+  }
+
+
+  deleteAgremiado(id: number) {
+    this.user.deleteAgremiadoById(id).subscribe(
+      () => {
+        this.goodNo();
+        this.user.deleteAgremiadoSubject.next();
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+  }
+
+  confirmDecision(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, do it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteAgremiado(id);
+      }
+    });
   }
 
 }

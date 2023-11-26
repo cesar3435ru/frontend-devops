@@ -15,21 +15,16 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    return this.auth.getIsAuthenticated().pipe(
-      map((isAuthenticated) => {
-        if (isAuthenticated === true) {
-          console.log('Access allowed');
-          this.router.navigateByUrl('/h-admin');
-          this.goodNot();
-          return true;
-        } else {
-          console.log('No access babe');
-          this.router.navigateByUrl('/login');
-          this.alertError();
-          return false;
-        }
-      })
-    );
+      if (this.auth.getAuth) {
+        console.log('Access allowed babe testing');
+        // this.goodNot();
+        this.router.navigate(['/admin']); // Redirige al inicio de sesión
+        return true; // Usuario autenticado
+      } else {
+        console.log('Access denied');
+        return false;
+
+      }
   }
 
   alertError() {

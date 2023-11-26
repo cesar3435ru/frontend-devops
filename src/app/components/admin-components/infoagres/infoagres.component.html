@@ -1,8 +1,3 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Add Agremiado <i class="fa-solid fa-plus"></i>
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -40,7 +35,7 @@
             </small>
           </div>
 
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <select class="form-select" aria-label="Default select example" formControlName="genero">
               <option disabled value="">Elige tu género*</option>
               <option *ngFor="let ge of generos" [value]="ge.id">{{ ge.genero }}</option>
@@ -48,7 +43,18 @@
             <small *ngIf="validateInput('genero')" class="form-text text-danger">
               Debes elegir tu género.
             </small>
+          </div> -->
+          <div class="col-md-4">
+            <select class="form-select" aria-label="Default select example" formControlName="genero"
+              [(ngModel)]="selectedGender">
+              <option disabled [ngValue]="undefined" selected>Elige tu género*</option>
+              <option *ngFor="let ge of generos" [value]="ge.id">{{ ge.genero }}</option>
+            </select>
+            <small *ngIf="validateInput('genero')" class="form-text text-danger">
+              Debes elegir tu género.
+            </small>
           </div>
+
 
           <div class="form-floating col-md-4">
             <input type="text" class="form-control" id="nup" autocomplete="true" formControlName="nup"
@@ -60,8 +66,9 @@
           </div>
 
           <div class="col-md-4">
-            <select class="form-select" aria-label="Default select example" formControlName="nue">
-              <option disabled value="">Elige el nue*</option>
+            <select class="form-select" aria-label="Default select example" formControlName="nue"
+              [(ngModel)]="selectedNue">
+              <option disabled [ngValue]="undefined" selected>Elige el nue*</option>
               <option *ngFor="let n of nues" [value]="n.id">{{ n.nue }}</option>
             </select>
             <small *ngIf="validateInput('nue')" class="form-text text-danger">
@@ -106,8 +113,9 @@
           </div>
 
           <div class="col-md-4">
-            <select class="form-select" aria-label="Default select example" formControlName="cuota">
-              <option disabled value="">Elige una cuota*</option>
+            <select class="form-select" aria-label="Default select example" formControlName="cuota"
+              [(ngModel)]="selectedCuota">
+              <option disabled [ngValue]="undefined" selected>Elige una cuota*</option>
               <option *ngFor="let c of cuotas" [value]="c.id">{{ c.respuesta }}</option>
             </select>
             <small *ngIf="validateInput('cuota')" class="form-text text-danger">
@@ -130,46 +138,77 @@
   </div>
 </div>
 
-<div class="table-responsive">
-  <table id="tasks" class="table table-striped table-hover table-bordered shadow-lg mt-4 table table-hover"
-    style="width:100%">
-    <thead>
-      <tr>
-        <th scope="col">Nombre completo</th>
-        <th scope="col">Género</th>
-        <th scope="col">NUP</th>
-        <th scope="col">NUE</th>
-        <th scope="col">RFC</th>
-        <th scope="col">NSS</th>
-        <th scope="col">Fecha de nacimiento</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">Cuota</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ag of agremiados">
-        <td>{{ag.nombre}} {{ag.a_paterno}} {{ag.a_materno}}</td>
-        <td>{{ag.genero.genero}}</td>
-        <td>{{ag.nup}}</td>
-        <td>{{ag.nue}}</td>
-        <td>{{ag.rfc}}</td>
-        <td>{{ag.nss}}</td>
-        <td>{{ag.telefono}}</td>
-        <td>{{ag.f_nacimiento}}</td>
-        <td>{{ag.cuota.respuesta}}</td>
-        <td>
-          <button class="btn btn-outline-primary btn-sm separar" type="submit"><i class="fas fa-fw fa-pencil"></i>
-            Editar</button>
-          <button class="btn btn-outline-danger btn-sm" type="submit"><i class="fas fa-fw fa-trash"></i>
-            Borrar</button>
-        </td>
-      </tr>
+<div class="container">
 
-    </tbody>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Agremiado <i class="fa-solid fa-plus"></i>
+  </button>
+  <br>
+  <br>
 
-  </table>
+  <div class="input-group">
+    <input class="form-control" type="text" [(ngModel)]="searchTerm" placeholder="Search info..." id="searchTerm">
+    <span class="toggle-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
+  </div>
 
-  <!-- <pagination-controls class="page" (pageChange)="p = $event"></pagination-controls> -->
+  <div class="table-responsive" *ngIf="agremiados.length > 0">
+    <table id="tasks" class="table table-striped table-hover table-bordered shadow-lg mt-4 table table-hover"
+      style="width:100%">
+      <thead>
+        <tr>
+          <th scope="col">Nombre completo</th>
+          <th scope="col">Género</th>
+          <th scope="col">NUP</th>
+          <th scope="col">NUE</th>
+          <th scope="col">RFC</th>
+          <th scope="col">NSS</th>
+          <th scope="col">Fecha de nacimiento</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Cuota</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="getFilteredAgres().length > 0; else noResults">
+        <tr *ngFor="let ag of getFilteredAgres() | paginate: { itemsPerPage: 3, currentPage: p }">
+          <td>{{ag.nombre}} {{ag.a_paterno}} {{ag.a_materno}}</td>
+          <td>{{ag.genero.genero}}</td>
+          <td>{{ag.nup}}</td>
+          <td>{{ag.nue}}</td>
+          <td>{{ag.rfc}}</td>
+          <td>{{ag.nss}}</td>
+          <td>{{ag.telefono}}</td>
+          <td>{{ag.f_nacimiento}}</td>
+          <td>{{ag.cuota.respuesta}}</td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm separar" type="submit"><i class="fas fa-fw fa-pencil"></i>
+              Editar</button>
+            <button class="btn btn-outline-danger btn-sm" type="submit" (click)="confirmDecision(ag.id)"><i
+                class="fas fa-fw fa-trash"></i>
+              Borrar</button>
+          </td>
+        </tr>
+
+      </tbody>
+      <ng-template #noResults>
+        <tbody>
+          <tr>
+            <td colspan="12" class="text-center">NO RESULTS</td>
+          </tr>
+        </tbody>
+      </ng-template>
+
+    </table>
+
+    <pagination-controls class="page" (pageChange)="p = $event"></pagination-controls>
+
+  </div>
+  <br>
+  <div *ngIf="agremiados.length === 0" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Hoops babe!</strong> You still don't have any agremiados.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 
 </div>
