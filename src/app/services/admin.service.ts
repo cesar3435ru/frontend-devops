@@ -146,7 +146,7 @@ export class AdminService {
       withCredentials: true
     });
   }
-  
+
   getAgremiadosObservable(): Observable<void> {
     return this.addAgremiadoSubject.asObservable();
   }
@@ -165,11 +165,6 @@ export class AdminService {
   getAgremiadosDeletedObservable(): Observable<void> {
     return this.deleteAgremiadoSubject.asObservable();
   }
-  editInfoAgrem(id: number, formData: FormData) {
-    return this.http.put(this.api + `/api/agremiado/${id}`, formData, {
-      withCredentials: true
-    });
-  }
 
 
   getGeneros() {
@@ -178,7 +173,7 @@ export class AdminService {
     });
   }
 
-  
+
   getNuesA() {
     return this.http.get(this.api + '/api/nues', {
       withCredentials: true
@@ -187,6 +182,18 @@ export class AdminService {
 
   getCuotas() {
     return this.http.get(this.api + '/api/cuotas', {
+      withCredentials: true
+    });
+  }
+
+  getAgremById(id: number) {
+    return this.http.get(this.api + `/api/getagremiado/${id}`, {
+      withCredentials: true
+    });
+  }
+
+  editInfoAgrem(id: number, formData: FormData) {
+    return this.http.put(this.api + `/api/agremiado/${id}`, formData, {
       withCredentials: true
     });
   }

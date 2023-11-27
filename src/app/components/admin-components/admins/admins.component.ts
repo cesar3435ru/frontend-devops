@@ -201,7 +201,7 @@ export class AdminsComponent implements OnInit {
 
   editAdmin(id: number) {
     console.log('TESING', id);
-    this.rou.navigateByUrl(`h-admin/editadmin/${id}`);
+    this.rou.navigateByUrl(`admin/editadmin/${id}`);
   }
 
 }

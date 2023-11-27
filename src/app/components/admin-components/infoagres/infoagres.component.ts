@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import Swal from 'sweetalert2';
 
@@ -22,7 +23,7 @@ export class InfoagresComponent {
   p: number = 1;
 
 
-  constructor(private user: AdminService, private theForm: FormBuilder) {
+  constructor(private user: AdminService, private theForm: FormBuilder, private rou: Router) {
     this.showAgremiados();
     this.showGeneros();
     this.showNues();
@@ -207,6 +208,12 @@ export class InfoagresComponent {
         this.deleteAgremiado(id);
       }
     });
+  }
+
+  editarAgremiado(id: number) {
+    console.log('TESING', id);
+    this.rou.navigateByUrl(`admin/agre/${id}`);
+    // agre/:id
   }
 
 }

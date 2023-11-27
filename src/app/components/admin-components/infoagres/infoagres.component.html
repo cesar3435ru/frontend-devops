@@ -183,7 +183,7 @@
           <td>{{ag.f_nacimiento}}</td>
           <td>{{ag.cuota.respuesta}}</td>
           <td>
-            <button class="btn btn-outline-primary btn-sm separar" type="submit"><i class="fas fa-fw fa-pencil"></i>
+            <button class="btn btn-outline-primary btn-sm separar" type="submit" (click)="editarAgremiado(ag.id)"><i class="fas fa-fw fa-pencil"></i>
               Editar</button>
             <button class="btn btn-outline-danger btn-sm" type="submit" (click)="confirmDecision(ag.id)"><i
                 class="fas fa-fw fa-trash"></i>

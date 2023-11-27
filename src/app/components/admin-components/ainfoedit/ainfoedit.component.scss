@@ -1,0 +1,41 @@
+.center{
+    text-align: center;
+}
+
+.twocolors {
+    background: linear-gradient(to right, lightblue, lightgreen);
+  }
+
+
+
+  
+  /* Custom styles for the tooltip */
+.custom-tooltip {
+    position: relative; /* Ensure the tooltip is relative to the button */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+/* Tooltip style */
+.custom-tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -45px; /* Adjust the vertical position as needed */
+    left: 50%; /* Center the tooltip horizontally */
+    transform: translateX(-50%);
+    background-color: #333; /* Tooltip background color */
+    color: #fff; /* Tooltip text color */
+    padding: 6px 20px; /* Spacing inside the tooltip */
+    border-radius: 4px; /* Rounded corners */
+    opacity: 0; /* Initially, the tooltip is not visible */
+    transition: opacity 0.2s ease-in-out; /* Opacity animation */
+}
+
+/* Show the tooltip on hover */
+.custom-tooltip:hover::before {
+    opacity: 1; /* Display the tooltip on hover */
+}
+
+  
+  .centrar{
+    text-align: center;
+  }

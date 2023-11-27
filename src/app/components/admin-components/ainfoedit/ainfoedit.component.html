@@ -1,1 +1,134 @@
-<p>ainfoedit works!</p>
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card twocolors">
+                <div class="card-body">
+                    <a routerLink="/admin/info-agres" [routerLinkActive]="['active']" class="custom-tooltip"
+                        data-tooltip="Regresar"><i class="fa-solid fa-left-long btn btn-outline-secondary"></i>
+                    </a>
+                    <div>
+                        <h1 class="center">Update any information, just fill the inputs.</h1>
+                    </div>
+
+                    <form [formGroup]="agrForm" (ngSubmit)="updateInfo()" class="row g-2">
+                        <div class="form-floating col-md-4">
+                          <input type="text" class="form-control" id="a_paterno" autocomplete="true" formControlName="a_paterno"
+                            placeholder="Write your apellido paterno">
+                          <label for="a_paterno">Apellido Paterno*</label>
+                          <small *ngIf="validateInput('a_paterno')" class="form-text text-dark">
+                            El campo es requerido
+                          </small>
+                        </div>
+              
+                        <div class="form-floating col-md-4">
+                          <input type="text" class="form-control" id="a_materno" autocomplete="true" formControlName="a_materno"
+                            placeholder="Write your apellido materno">
+                          <label for="a_materno">Apellido Materno*</label>
+                          <small *ngIf="validateInput('a_materno')" class="form-text text-dark">
+                            El campo es requerido
+                          </small>
+                        </div>
+              
+                        <div class="form-floating col-md-4">
+                          <input type="text" class="form-control" id="nombre" autocomplete="true" formControlName="nombre"
+                            placeholder="Write your nombre">
+                          <label for="nombre">Nombre(s)*</label>
+                          <small *ngIf="validateInput('nombre')" class="form-text text-dark">
+                            El campo es requerido
+                          </small>
+                        </div>
+              
+                        <div class="col-md-4">
+                          <select class="form-select" aria-label="Default select example" formControlName="genero"
+                            [(ngModel)]="selectedGender">
+                            <option disabled [ngValue]="undefined" selected>Elige tu género*</option>
+                            <option *ngFor="let ge of generos" [value]="ge.id">{{ ge.genero }}</option>
+                          </select>
+                          <small *ngIf="validateInput('genero')" class="form-text text-dark">
+                            Debes elegir tu género.
+                          </small>
+                        </div>
+              
+              
+                        <div class="form-floating col-md-4">
+                          <input type="text" class="form-control" id="nup" autocomplete="true" formControlName="nup"
+                            placeholder="Write your nup">
+                          <label for="nup">NUP*</label>
+                          <small *ngIf="validateInput('nup')" class="form-text text-dark">
+                            El campo rfc es requerido
+                          </small>
+                        </div>
+              
+                        <div class="col-md-4">
+                          <select class="form-select" aria-label="Default select example" formControlName="nue"
+                            [(ngModel)]="selectedNue">
+                            <option disabled [ngValue]="undefined" selected>Elige el nue*</option>
+                            <option *ngFor="let n of nues" [value]="n.id">{{ n.nue }}</option>
+                          </select>
+                          <small *ngIf="validateInput('nue')" class="form-text text-dark">
+                            Debes elegir un nue para asignar.
+                          </small>
+                        </div>
+              
+                        <div class="form-floating col-md-4">
+                          <input type="text" class="form-control" id="rfc" autocomplete="true" formControlName="rfc"
+                            placeholder="Write your rfc">
+                          <label for="rfc">RFC*</label>
+                          <small *ngIf="validateInput('rfc')" class="form-text text-dark">
+                            El campo rfc es requerido
+                          </small>
+                        </div>
+              
+                        <div class="form-floating col-md-4">
+                          <input type="text" class="form-control" id="nss" autocomplete="true" formControlName="nss"
+                            placeholder="Write your nss">
+                          <label for="nss">NSS*</label>
+                          <small *ngIf="validateInput('nss')" class="form-text text-dark">
+                            El campo nss es requerido
+                          </small>
+                        </div>
+              
+                        <div class="form-floating col-md-4">
+                          <input type="date" class="form-control" id="f_nacimiento" autocomplete="true" formControlName="f_nacimiento"
+                            placeholder="Write your fecha">
+                          <label for="f_nacimiento">F nacimiento*</label>
+                          <small *ngIf="validateInput('f_nacimiento')" class="form-text text-dark">
+                            El campo es requerido
+                          </small>
+                        </div>
+              
+                        <div class="form-floating col-md-4">
+                          <input type="text" class="form-control" id="telefono" autocomplete="true" formControlName="telefono"
+                            placeholder="Write your telefono">
+                          <label for="telefono">Teléfono*</label>
+                          <small *ngIf="validateInput('telefono')" class="form-text text-dark">
+                            El campo telefono es requerido
+                          </small>
+                        </div>
+              
+                        <div class="col-md-4">
+                          <select class="form-select" aria-label="Default select example" formControlName="cuota"
+                            [(ngModel)]="selectedCuota">
+                            <option disabled [ngValue]="undefined" selected>Elige una cuota*</option>
+                            <option *ngFor="let c of cuotas" [value]="c.id">{{ c.respuesta }}</option>
+                          </select>
+                          <small *ngIf="validateInput('cuota')" class="form-text text-dark">
+                            Debes elegir una cuota.
+                          </small>
+                        </div>
+              
+              
+              
+              
+                        <div class="centrar">
+                          <button type="submit" class="btn btn-primary" [disabled]="agrForm.invalid">Actualizar
+                            registro</button>
+                        </div>
+                      </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
