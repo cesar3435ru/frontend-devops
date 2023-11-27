@@ -198,6 +198,19 @@ export class AdminService {
     });
   }
 
+  getSolicitudesByAdmin() {
+    return this.http.get(this.api + '/api/solis', {
+      withCredentials: true
+    });
+  }
+
+  downloadFile(id: number): Observable<any> {
+    return this.http.get(`${this.api}/api/download/${id}`, {
+      responseType: 'blob', // Indica al servidor que esperas un archivo como respuesta
+      withCredentials: true // Envía las credenciales en la solicitud
+    });
+  }
+
 
 }
 

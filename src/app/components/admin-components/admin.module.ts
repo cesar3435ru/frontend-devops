@@ -13,6 +13,8 @@ import { EditadminComponent } from './editadmin/editadmin.component';
 import { EditagreComponent } from './editagre/editagre.component';
 import { InfoagresComponent } from './infoagres/infoagres.component';
 import { AinfoeditComponent } from './ainfoedit/ainfoedit.component';
+import { SolicitudesaComponent } from './solicitudesa/solicitudesa.component';
+import { SafeUrlPipe } from 'src/app/pipes/safe-url.pipe';
 const routes: Routes = [
   {
     path: 'admin',
@@ -23,9 +25,11 @@ const routes: Routes = [
       { path: 'admins', component: AdminsComponent },
       { path: 'editadmin/:id', component: EditadminComponent },
       { path: 'agremiados', component: AgremiadosComponent },
-      { path: 'editagre/:id', component: EditagreComponent},
-      { path: 'info-agres', component: InfoagresComponent},
-      { path: 'agre/:id', component: AinfoeditComponent},
+      { path: 'editagre/:id', component: EditagreComponent },
+      { path: 'info-agres', component: InfoagresComponent },
+      { path: 'agre/:id', component: AinfoeditComponent },
+      { path: 'solicitudes', component: SolicitudesaComponent },
+
 
 
     ],
@@ -45,7 +49,9 @@ const routes: Routes = [
     EditadminComponent,
     EditagreComponent,
     InfoagresComponent,
-    AinfoeditComponent
+    AinfoeditComponent,
+    SolicitudesaComponent,
+    SafeUrlPipe
   ],
   imports: [
     CommonModule,

@@ -32,10 +32,48 @@
     line-height: 0;
 }
 
-.separar{
+.separar {
     margin: 5px;
-  }
+}
 
-  .center{
+.center {
     text-align: center;
-  }
+}
+
+/* Custom styles for the tooltip */
+.custom-tooltip {
+    position: relative;
+    /* Ensure the tooltip is relative to the button */
+    cursor: pointer;
+    /* Change cursor on hover */
+}
+
+/* Tooltip style */
+.custom-tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -10px;
+    /* Adjust the vertical position as needed */
+    right: calc(100% + 10px);
+    /* Coloca el tooltip a la izquierda del botón */
+
+    transform: translateX(-50%);
+    background-color: #333;
+    /* Tooltip background color */
+    color: #fff;
+    /* Tooltip text color */
+    padding: 6px 30px;
+    /* Spacing inside the tooltip */
+    border-radius: 4px;
+    /* Rounded corners */
+    opacity: 0;
+    /* Initially, the tooltip is not visible */
+    transition: opacity 0.2s ease-in-out;
+    /* Opacity animation */
+}
+
+/* Show the tooltip on hover */
+.custom-tooltip:hover::before {
+    opacity: 1;
+    /* Display the tooltip on hover */
+}

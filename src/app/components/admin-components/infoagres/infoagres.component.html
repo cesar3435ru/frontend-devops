@@ -138,12 +138,23 @@
   </div>
 </div>
 
-<div class="container">
+<div>
 
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Add Agremiado <i class="fa-solid fa-plus"></i>
-  </button>
+  <div class="d-flex justify-content-between">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Agremiado <i class="fa-solid fa-plus"></i>
+    </button>
+    <!-- Enlace de regresar -->
+    <a routerLink="/admin/home" [routerLinkActive]="['active']" class="custom-tooltip" data-tooltip="Regresar a home"><i
+        class="fa-solid fa-left-long btn btn-outline-primary"></i>
+    </a>
+
+    <!-- <button class="btn btn-outline-primary" routerLink="/admin/home" [routerLinkActive]="['active']">
+      Regresar <i class="fa-solid fa-left-long"></i>
+    </button> -->
+  </div>
+
   <br>
   <br>
 
@@ -157,7 +168,7 @@
   <div class="table-responsive" *ngIf="agremiados.length > 0">
     <table id="tasks" class="table table-striped table-hover table-bordered shadow-lg mt-4 table table-hover"
       style="width:100%">
-      <thead>
+      <thead class="table-primary text-white">
         <tr>
           <th scope="col">Nombre completo</th>
           <th scope="col">Género</th>
@@ -183,7 +194,8 @@
           <td>{{ag.f_nacimiento}}</td>
           <td>{{ag.cuota.respuesta}}</td>
           <td>
-            <button class="btn btn-outline-primary btn-sm separar" type="submit" (click)="editarAgremiado(ag.id)"><i class="fas fa-fw fa-pencil"></i>
+            <button class="btn btn-outline-primary btn-sm separar" type="submit" (click)="editarAgremiado(ag.id)"><i
+                class="fas fa-fw fa-pencil"></i>
               Editar</button>
             <button class="btn btn-outline-danger btn-sm" type="submit" (click)="confirmDecision(ag.id)"><i
                 class="fas fa-fw fa-trash"></i>

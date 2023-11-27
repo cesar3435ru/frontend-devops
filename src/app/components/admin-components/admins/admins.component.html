@@ -1,7 +1,15 @@
 <br>
 <div class="container">
-    <button type="button" (click)="toggleForm()" class="btn btn-outline-success"> <i
-            class="fa-solid fa-square-plus"></i> Agregar Admin</button>
+
+    <div class="d-flex justify-content-between">
+        <button type="button" (click)="toggleForm()" class="btn btn-outline-success"> <i
+                class="fa-solid fa-square-plus"></i> Agregar Admin</button>
+        <!-- Enlace de regresar -->
+        <a routerLink="/admin/home" [routerLinkActive]="['active']" class="custom-tooltip"
+            data-tooltip="Regresar a home"><i class="fa-solid fa-left-long btn btn-outline-primary"></i>
+        </a>
+    </div>
+
 </div>
 <br>
 <div *ngIf="showForm">

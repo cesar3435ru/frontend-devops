@@ -1,40 +1,11 @@
-.center {
-    text-align: center;
-}
-
-.separate {
-    margin: 10px;
+.separar {
+    margin: 5px;
 }
 
 .page {
     text-align: center;
 }
 
-.toggle-search {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-.toggle-password {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    line-height: 0;
-}
-
-.toggle-passwordtwo {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    line-height: 0;
-}
 
 /* Custom styles for the tooltip */
 .custom-tooltip {
@@ -48,17 +19,16 @@
 .custom-tooltip::before {
     content: attr(data-tooltip);
     position: absolute;
-    top: -10px;
+    top: 10px;
     /* Adjust the vertical position as needed */
-    right: calc(100% + 10px);
-    /* Coloca el tooltip a la izquierda del botón */
-
+    left: calc(100% + 60px);
+    /* Center the tooltip horizontally */
     transform: translateX(-50%);
     background-color: #333;
     /* Tooltip background color */
     color: #fff;
     /* Tooltip text color */
-    padding: 6px 30px;
+    padding: 6px 10px;
     /* Spacing inside the tooltip */
     border-radius: 4px;
     /* Rounded corners */
@@ -72,4 +42,12 @@
 .custom-tooltip:hover::before {
     opacity: 1;
     /* Display the tooltip on hover */
+}
+
+.alg-c{
+    text-align: center;
+}
+
+.sep{
+    margin: 10px;
 }
