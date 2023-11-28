@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class SolicitudesaComponent {
   p: number = 1;
 
 
-  constructor(private admin: AdminService) {
+  constructor(private admin: AdminService, private theForm: FormBuilder) {
     this.showSolicitudes();
 
   }
@@ -73,7 +74,44 @@ export class SolicitudesaComponent {
       }
     );
   }
-  
+
+
+  filterForm: FormGroup = this.theForm.group({
+    start_date: [null, Validators.required],
+    end_date: ["", Validators.required],
+
+  });
+
+  validateInput(campo: string) {
+    return this.filterForm.controls[campo].errors && this.filterForm.controls[campo].touched
+  }
+
+
+  saveInfo() {
+    const startDateValue = this.filterForm.get('start_date')?.value;
+    const endDateValue = this.filterForm.get('end_date')?.value;
+
+    // Verifica si startDateValue y endDateValue son fechas válidas antes de convertirlas
+    const startDate = startDateValue ? new Date(startDateValue).toISOString().split('T')[0] : '';
+    const endDate = endDateValue ? new Date(endDateValue).toISOString().split('T')[0] : '';
+
+    const formData = new FormData();
+    formData.append('start_date', startDate);
+    formData.append('end_date', endDate);
+
+    this.admin.getSolicitudesByFilter(startDate, endDate).subscribe(
+      (response) => {
+        console.log('Backend responds:', response);
+        this.filterForm.reset();
+      },
+      (error) => {
+        console.error('Error backend:', error);
+        this.filterForm.reset();
+      }
+    );
+  }
+
+
 
 
 }

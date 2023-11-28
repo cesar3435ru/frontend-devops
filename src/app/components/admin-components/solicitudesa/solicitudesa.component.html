@@ -2,20 +2,47 @@
 <a routerLink="/admin/home" [routerLinkActive]="['active']" class="custom-tooltip" data-tooltip="Regresar a home"><i
         class="fa-solid fa-left-long btn btn-outline-primary"></i>
 </a>
+<br>
+<br>
 <div>
-    <div class="d-flex justify-content-between">
-        <!-- <div class="form-floating col-md-4">
-            <input type="date" class="form-control" id="f_nacimiento" autocomplete="true" formControlName="f_nacimiento"
-                placeholder="Write your fecha">
-            <label for="f_nacimiento">F nacimiento*</label>
-            <small *ngIf="validateInput('f_nacimiento')" class="form-text text-danger">
-                El campo es requerido
-            </small>
-        </div> -->
+    <div>
+        <form [formGroup]="filterForm" (ngSubmit)="saveInfo()" class="row g-2">
+
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="date" class="form-control" id="f_nacimiento" autocomplete="true"
+                        formControlName="start_date" placeholder="Write your fecha">
+                    <label for="f_nacimiento">F nacimiento*</label>
+                    <small *ngIf="validateInput('start_date')" class="form-text text-danger">
+                        El campo es requerido
+                    </small>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="date" class="form-control" id="f_nacimiento" autocomplete="true"
+                        formControlName="end_date" placeholder="Write your fecha">
+                    <label for="f_nacimiento">F nacimiento*</label>
+                    <small *ngIf="validateInput('end_date')" class="form-text text-danger">
+                        El campo es requerido
+                    </small>
+                </div>
+            </div>
+
+
+            <!-- Modal Button -->
+            <div class="col-md-4">
+                <button type="submit" [disabled]="filterForm.invalid" class="btn btn-outline-success btn-lg"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <i class="fa-solid fa-filter"></i> Filtrar datos de busqueda
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
-
-    <br>
     <br>
 
     <div class="input-group">
@@ -85,4 +112,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
+</div>
+
+
+<!-- Static Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

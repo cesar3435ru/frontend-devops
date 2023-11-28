@@ -211,6 +211,25 @@ export class AdminService {
     });
   }
 
+  // getSolicitudesByFilter() {
+  //   return this.http.get(this.api + '/api/solisporfecha', {
+  //     withCredentials: true
+  //   });
+  // }
+
+  getSolicitudesByFilter(startDate: string, endDate: string) {
+    const url = `${this.api}/api/solisporfecha`;
+    const params = {
+      start_date: startDate,
+      end_date: endDate
+    };
+
+    return this.http.get(url, {
+      params: params,
+      withCredentials: true
+    });
+  }
+
 
 }
 
