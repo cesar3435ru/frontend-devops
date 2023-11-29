@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
@@ -10,11 +11,13 @@ import { AdminService } from 'src/app/services/admin.service';
 export class SolicitudesaComponent {
 
   solicitudes: any[] = [];
+  filtros: any[] = [];
   searchTerm: string = '';
   p: number = 1;
+  page: number = 1;
 
 
-  constructor(private admin: AdminService, private theForm: FormBuilder) {
+  constructor(private admin: AdminService, private theForm: FormBuilder, private datePipe: DatePipe) {
     this.showSolicitudes();
 
   }
@@ -58,6 +61,19 @@ export class SolicitudesaComponent {
     return /\.docx$/i.test(url);
   }
 
+  //Info para el filtro
+  isImg(url: string): boolean {
+    return /\.(jpg|jpeg|png|gif)$/i.test(url);
+  }
+
+  esPdf(url: string): boolean {
+    return /\.pdf$/i.test(url);
+  }
+
+  esDocx(url: string): boolean {
+    return /\.docx$/i.test(url);
+  }
+
   downloadFileBB(id: number) {
     this.admin.downloadFile(id).subscribe(
       (data: Blob) => {
@@ -75,6 +91,23 @@ export class SolicitudesaComponent {
     );
   }
 
+  downloadFileFilter(id: number) {
+    this.admin.downloadFile(id).subscribe(
+      (data: Blob) => {
+        const downloadURL = window.URL.createObjectURL(data);
+        const link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = 'File-ready'; // Reemplaza 'nombre_del_archivo' con el nombre que desees para el archivo
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+      (error) => {
+        console.error('Error al descargar:', error);
+      }
+    );
+  }
+
 
   filterForm: FormGroup = this.theForm.group({
     start_date: [null, Validators.required],
@@ -88,6 +121,8 @@ export class SolicitudesaComponent {
 
 
   saveInfo() {
+    console.log(this.filterForm.value);
+
     const startDateValue = this.filterForm.get('start_date')?.value;
     const endDateValue = this.filterForm.get('end_date')?.value;
 
@@ -100,8 +135,10 @@ export class SolicitudesaComponent {
     formData.append('end_date', endDate);
 
     this.admin.getSolicitudesByFilter(startDate, endDate).subscribe(
-      (response) => {
-        console.log('Backend responds:', response);
+      (response: any) => {
+        this.filtros = response
+        console.log('my filter', this.filtros);
+
         this.filterForm.reset();
       },
       (error) => {
@@ -111,7 +148,33 @@ export class SolicitudesaComponent {
     );
   }
 
+  formatDateToLocale(date: string | null): string {
+    if (!date) {
+      return ''; // o cualquier valor predeterminado que desees para fechas nulas
+    }
 
+    let fechaBD = new Date(date);
+
+    // Sumar un día a la fecha
+    fechaBD.setDate(fechaBD.getDate() + 1);
+
+    // Formatear la fecha sumada a la zona horaria local
+    return this.datePipe.transform(fechaBD, 'dd/MM/yyyy') || ''; // Puedes usar otros formatos según necesites
+  }
+
+  formatDateT(fecha: string | null): string {
+    if (!fecha) {
+      return ''; // o cualquier valor predeterminado que desees para fechas nulas
+    }
+
+    let fechaBD = new Date(fecha);
+
+    // Sumar un día a la fecha
+    fechaBD.setDate(fechaBD.getDate() + 1);
+
+    // Formatear la fecha sumada a la zona horaria local
+    return this.datePipe.transform(fechaBD, 'dd/MM/yyyy') || ''; // Puedes usar otros formatos según necesites
+  }
 
 
 }

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeagrComponent } from './homeagr/homeagr.component';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { AgremiadoGuard } from 'src/app/guards/agremiado.guard';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
     component: HomeagrComponent,
     // canActivate: [AgremiadoGuard],
     children: [
-      { path: 'solicitudes', component: SolicitudesComponent },
+      { path: 'requests', component: SolicitudesComponent },
     ],
     canActivate: [AgremiadoGuard]
   }
@@ -30,7 +30,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgxPaginationModule,
     RouterModule.forChild(routes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   exports: [HomeagrComponent, SolicitudesComponent,
   ]

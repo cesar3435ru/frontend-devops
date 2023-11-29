@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HomeadminComponent } from './homeadmin/homeadmin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -53,6 +53,7 @@ const routes: Routes = [
     SolicitudesaComponent,
     SafeUrlPipe
   ],
+  providers: [DatePipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from 'appsettings-json-reader';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -11,6 +11,10 @@ export class AgremiadoService {
 
   getAuthAgr: EventEmitter<boolean> = new EventEmitter(false);
   private api = AppSettings.readAppSettings().taskSettings.apiURL;
+  public requestsSubject: Subject<void> = new Subject<void>();
+  public deleteRequestSubject: Subject<void> = new Subject<void>();
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -57,6 +61,33 @@ export class AgremiadoService {
       })
     );
   }
+
+  getSolicitudesByAuthenticatedAgre() {
+    return this.http.get(this.api + '/api/solicitudes', {
+      withCredentials: true
+    });
+  }
+
+  getRequestsObservable(): Observable<void> {
+    return this.requestsSubject.asObservable();
+  }
+
+  deleteRequestById(id: number) {
+    return this.http.delete(this.api + `/api/soli/${id}`, {
+      withCredentials: true
+    });
+  }
+  getRequestDeletedObservable(): Observable<void> {
+    return this.deleteRequestSubject.asObservable();
+  }
+
+
+  uploadFile(formData: FormData) {
+    return this.http.post(this.api + `/api/rsolicitud`, formData, {
+      withCredentials: true
+    });
+  }
+
 }
 
 
