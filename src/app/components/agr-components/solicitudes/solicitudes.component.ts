@@ -201,7 +201,7 @@ export class SolicitudesComponent {
     let fechaBD = new Date(fecha);
 
     // Sumar un día a la fecha
-    fechaBD.setDate(fechaBD.getDate() + 1);
+    fechaBD.setDate(fechaBD.getDate());
 
     // Formatear la fecha sumada a la zona horaria local
     return this.datePipe.transform(fechaBD, 'dd/MM/yyyy') || ''; // Puedes usar otros formatos según necesites

@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import Swal from 'sweetalert2';
+// import * as $ from 'jquery';
+// import 'datatables.net';
 
+declare var $: any;
 
 @Component({
   selector: 'app-infoagres',
   templateUrl: './infoagres.component.html',
   styleUrls: ['./infoagres.component.scss']
 })
-export class InfoagresComponent {
+export class InfoagresComponent implements OnInit {
   agremiados: any[] = [];
+  agres: any[] = [];
   generos: any[] = [];
   nues: any[] = [];
   cuotas: any[] = [];
@@ -21,6 +25,9 @@ export class InfoagresComponent {
 
   searchTerm: string = '';
   p: number = 1;
+
+  dtOptions: any = {};
+  // dtOptions: DataTables.Settings = {};
 
 
   constructor(private user: AdminService, private theForm: FormBuilder, private rou: Router) {
@@ -36,6 +43,55 @@ export class InfoagresComponent {
       this.showAgremiados();
     });
   }
+
+  ngOnInit(): void {
+    this.dtOptions = {
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json"
+      },
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true,
+      lengthMenu: [5, 10, 25],
+      responsive: true,
+      destroy: true,
+      dom: 'Blfrtip',
+      buttons: [
+        {
+          extend: 'print',
+          text: '<i class="fas fa-print" style="color: red;"></i> Imprimir',
+          exportOptions: {
+            columns: ':not(:last-child)'
+          },
+          className: 'btn-danger'
+        },
+        {
+          extend: 'excel',
+          text: '<i class="fas fa-print" style="color: green;"></i> EXCEL',
+          exportOptions: {
+            columns: ':not(:last-child)'
+          },
+          className: 'btn-success'
+        }
+      ],
+    };
+    this.getAgremiados();
+  }
+
+  // ngOnDestroy(): void {
+  //   if ($.fn.dataTable.isDataTable('#agrestable')) {
+  //     $('#agrestable').DataTable().destroy();
+  //   }
+
+  // }
+
+  ngOnDestroy(): void {
+    const table = $('#agrestable').DataTable();
+    if ($.fn.dataTable.isDataTable('#agrestable') && table !== null && typeof table !== 'undefined') {
+      table.destroy();
+    }
+  }
+
 
   agrForm: FormGroup = this.theForm.group({
     a_paterno: ["", [Validators.required, Validators.maxLength(50)]],
@@ -103,10 +159,44 @@ export class InfoagresComponent {
     );
   }
 
+  // getAgremiados() {
+  //   this.user.getAllAgreamiados().subscribe(
+  //     (data: any) => {
+  //       this.agres = data.agremiados;
+  //       console.log('my data agres', this.agres);
+  //       $('#agrestable').DataTable().destroy();
+  //       setTimeout(() => {
+  //         $('#agrestable').DataTable(this.dtOptions);
+  //       }, 0);
+
+  //     },
+  //     (error) => {
+  //       console.error('Error:', error);
+  //     }
+  //   );
+  // }
+
+  getAgremiados() {
+    this.user.getAllAgreamiados().subscribe(
+      (data: any) => {
+        this.agres = data.agremiados;
+        console.log('my data agres', this.agres);
+        $('#agrestable').DataTable().destroy();
+        setTimeout(() => {
+          $('#agrestable').DataTable(this.dtOptions);
+        }, 100); // Ajusta el tiempo según sea necesario
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+  }
+
+
   filterAgres() {
     if (this.agremiados && this.agremiados.length > 0) {
       return this.agremiados.filter(agres =>
-        agres.rfc.toLowerCase().includes(this.searchTerm.toLowerCase())
+        agres.user.nue.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       return [];

@@ -15,6 +15,7 @@ import { InfoagresComponent } from './infoagres/infoagres.component';
 import { AinfoeditComponent } from './ainfoedit/ainfoedit.component';
 import { SolicitudesaComponent } from './solicitudesa/solicitudesa.component';
 import { SafeUrlPipe } from 'src/app/pipes/safe-url.pipe';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 const routes: Routes = [
   {
     path: 'admin',
@@ -34,6 +35,7 @@ const routes: Routes = [
 
     ],
     canActivate: [AdminGuard]
+    // canActivate: [AuthGuard]
 
   }
 ]

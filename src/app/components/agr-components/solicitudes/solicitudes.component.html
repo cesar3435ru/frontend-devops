@@ -38,11 +38,12 @@
                                 </button>
                             </div> -->
                             <div class="col-md-6 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-outline-primary w-100" [disabled]="reqForm.invalid">
+                                <button type="submit" class="btn btn-outline-primary w-100"
+                                    [disabled]="reqForm.invalid">
                                     <i class="fa-solid fa-file"></i> Enviar archivo
                                 </button>
                             </div>
-                            
+
                         </form>
 
                     </div>
@@ -74,7 +75,9 @@
 
             <tbody *ngIf="getFilteredRequests().length > 0; else noResults">
                 <tr *ngFor="let req of getFilteredRequests() | paginate: { itemsPerPage: 3, currentPage: p }">
-                    <td>{{ formatDateToLocale(req.created_at) }}</td>
+                    <!-- <td>{{ formatDateToLocale(req.created_at) }}</td> -->
+                    <!-- <td>{{req.created_at | date: 'dd/MM/yyyy' }}</td> -->
+                    <td>{{ req.created_at | date: 'dd-MM-yyyy' }}</td>
                     <td>{{ req.created_at | date: 'HH:mm:ss a' }}</td>
                     <td>
                         <button class="btn btn-outline-danger" type="submit" (click)="confirmAlert(req.id)"><i

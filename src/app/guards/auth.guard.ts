@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AdminService } from '../services/admin.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
   constructor(private auth: AdminService, private router: Router) { }
 
@@ -15,13 +15,13 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if (this.auth.getAuth) {
+      if (this.auth.isLoggedIn) {
         console.log('Access allowed babe testing');
         // this.goodNot();
-        this.router.navigate(['/admin/home']); // Redirige al inicio de sesión
         return true; // Usuario autenticado
       } else {
         console.log('Access denied');
+        this.router.navigate(['login']); // Redirige al inicio de sesión
         return false;
 
       }

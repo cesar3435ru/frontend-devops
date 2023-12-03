@@ -53,7 +53,7 @@
     </div>
 
     <div class="table-responsive" *ngIf="solicitudes.length > 0">
-        <table id="tasks" class="table table-striped table-hover table-bordered shadow-lg mt-4 table table-hover"
+        <table id="myTable" class="table table-striped table-hover table-bordered shadow-lg mt-4 table table-hover"
             style="width:100%">
             <thead class="table-secondary text-white">
                 <tr>
@@ -71,18 +71,21 @@
                     <td>{{ so.created_at | date: 'HH:mm:ss a' }}</td>
                     <td>
                         <ng-container *ngIf="isImage(so.ruta_archivo)">
-                            <a [href]="so.ruta_archivo" target="blank" class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-image"></i> Ver
+                            <a [href]="so.ruta_archivo" target="blank" class="btn btn-outline-success btn-sm sep"><i
+                                    class="fa-solid fa-image"></i> Ver
                                 IMG</a>
 
                         </ng-container>
                         <ng-container *ngIf="isPdf(so.ruta_archivo)">
-                            <a [href]="so.ruta_archivo" target="blank" class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-file"></i> Ver
+                            <a [href]="so.ruta_archivo" target="blank" class="btn btn-outline-success btn-sm sep"><i
+                                    class="fa-solid fa-file"></i> Ver
                                 PDF</a>
 
                         </ng-container>
                         <ng-container *ngIf="isDocx(so.ruta_archivo)">
                             <a [href]="so.ruta_archivo" target="blank" download
-                                class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-file-word"></i> Descargar DOCX</a>
+                                class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-file-word"></i>
+                                Descargar DOCX</a>
                         </ng-container>
 
 
@@ -147,19 +150,22 @@
                                 <td>
                                     <ng-container *ngIf="isImg(so.ruta_archivo)">
                                         <a [href]="so.ruta_archivo" target="blank"
-                                            class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-image"></i> Ver
+                                            class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-image"></i>
+                                            Ver
                                             IMG</a>
 
                                     </ng-container>
                                     <ng-container *ngIf="esPdf(so.ruta_archivo)">
                                         <a [href]="so.ruta_archivo" target="blank"
-                                            class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-file"></i> Ver
+                                            class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-file"></i>
+                                            Ver
                                             PDF</a>
 
                                     </ng-container>
                                     <ng-container *ngIf="esDocx(so.ruta_archivo)">
                                         <a [href]="so.ruta_archivo" target="blank" download
-                                            class="btn btn-outline-success btn-sm sep"><i class="fa-solid fa-file-word"></i> Descargar DOCX</a>
+                                            class="btn btn-outline-success btn-sm sep"><i
+                                                class="fa-solid fa-file-word"></i> Descargar DOCX</a>
                                     </ng-container>
 
 

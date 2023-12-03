@@ -1,5 +1,7 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
+    <button type="button" class="btn btn-danger left-boton" (click)="confirmAction();"><i
+        class="fa-solid fa-right-from-bracket"></i> Logout</button>
     <a class="navbar-brand">Administrador <i class="fa-solid fa-user-secret"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
       aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -14,20 +16,24 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="./home"
-              [routerLinkActive]="['active']">Home <i class="fa-solid fa-user-tie"></i></a>
+            <a class="nav-link active" aria-current="page" routerLink="./home" [routerLinkActive]="['active']">Home <i
+                class="fa-solid fa-user-tie"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="./admins" [routerLinkActive]="['active']">Admins <i class="fa-solid fa-users"></i></a>
+            <a class="nav-link" routerLink="./admins" [routerLinkActive]="['active']">Admins <i
+                class="fa-solid fa-users"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="./agremiados" [routerLinkActive]="['active']">Agremiados <i class="fa-solid fa-users-between-lines"></i></a>
+            <a class="nav-link" routerLink="./agremiados" [routerLinkActive]="['active']">Agremiados <i
+                class="fa-solid fa-users-between-lines"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="./info-agres" [routerLinkActive]="['active']">Agregar Agres <i class="fa-solid fa-plus"></i></a>
+            <a class="nav-link" routerLink="./info-agres" [routerLinkActive]="['active']">Agregar Agres <i
+                class="fa-solid fa-plus"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="./solicitudes" [routerLinkActive]="['active']">Ver solicitudes <i class="fa-solid fa-list"></i></a>
+            <a class="nav-link" routerLink="./solicitudes" [routerLinkActive]="['active']">Ver solicitudes <i
+                class="fa-solid fa-list"></i></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +44,8 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item hand-cursor" (click)="confirmAction();">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></a></li>
+              <li><a class="dropdown-item hand-cursor" (click)="confirmAction();">Cerrar sesión <i
+                    class="fa-solid fa-right-from-bracket"></i></a></li>
             </ul>
           </li>
         </ul>
@@ -56,4 +63,3 @@
 <div class="container-fluid">
   <router-outlet> </router-outlet>
 </div>
-

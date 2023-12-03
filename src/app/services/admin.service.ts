@@ -22,6 +22,8 @@ export class AdminService {
 
   public addAgremiadoSubject: Subject<void> = new Subject<void>();
 
+  isLoggedIn = false;
+
 
   private api = AppSettings.readAppSettings().taskSettings.apiURL;
 
@@ -50,6 +52,7 @@ export class AdminService {
       tap(() => {
         this.getAuth.emit(true); // Emitir un evento para indicar que el usuario está autenticado
         // this.setAuthStatus(true);
+        this.isLoggedIn = true;
       })
     );
   }
@@ -72,6 +75,7 @@ export class AdminService {
       tap(() => {
         this.getAuth.emit(false);
         // this.setAuthStatus(false);
+        this.isLoggedIn = false;
       })
     );
   }

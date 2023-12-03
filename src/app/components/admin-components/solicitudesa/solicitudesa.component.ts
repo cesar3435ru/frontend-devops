@@ -2,13 +2,14 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
-
 @Component({
   selector: 'app-solicitudesa',
   templateUrl: './solicitudesa.component.html',
   styleUrls: ['./solicitudesa.component.scss']
 })
 export class SolicitudesaComponent {
+
+
 
   solicitudes: any[] = [];
   filtros: any[] = [];
@@ -21,6 +22,7 @@ export class SolicitudesaComponent {
     this.showSolicitudes();
 
   }
+
 
   showSolicitudes() {
     this.admin.getSolicitudesByAdmin().subscribe(
@@ -156,7 +158,7 @@ export class SolicitudesaComponent {
     let fechaBD = new Date(date);
 
     // Sumar un día a la fecha
-    fechaBD.setDate(fechaBD.getDate() + 1);
+    fechaBD.setDate(fechaBD.getDate());
 
     // Formatear la fecha sumada a la zona horaria local
     return this.datePipe.transform(fechaBD, 'dd/MM/yyyy') || ''; // Puedes usar otros formatos según necesites
@@ -170,11 +172,13 @@ export class SolicitudesaComponent {
     let fechaBD = new Date(fecha);
 
     // Sumar un día a la fecha
-    fechaBD.setDate(fechaBD.getDate() + 1);
+    // fechaBD.setDate(fechaBD.getDate() + 1);
+    fechaBD.setDate(fechaBD.getDate());
 
     // Formatear la fecha sumada a la zona horaria local
     return this.datePipe.transform(fechaBD, 'dd/MM/yyyy') || ''; // Puedes usar otros formatos según necesites
   }
+
 
 
 }
